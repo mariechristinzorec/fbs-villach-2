@@ -1,0 +1,25 @@
+{
+  "beitraege": [
+    {
+      "titel": "Maturatermine Herbst 2026",
+      "datum": "2026-09-01",
+      "kategorie": "Lehre mit Matura",
+      "text": "Schriftliche Prüfung: 18.09.2026, Beginn 8:00 Uhr.\nMündliche Prüfung: 02.10.2026, Beginn 8:00 Uhr.",
+      "bild": ""
+    },
+    {
+      "titel": "Ein eMazda2 für unsere Werkstatt",
+      "datum": "2026-06-01",
+      "kategorie": "Kfz-Technik",
+      "text": "Die WKO hat uns ein Elektroauto für den Kfz-Unterricht übergeben. So lernen unsere Lehrlinge E-Mobilität direkt am Fahrzeug.",
+      "bild": ""
+    },
+    {
+      "titel": "Stromaggregat für die Feuerwehr",
+      "datum": "2026-05-01",
+      "kategorie": "Projekte",
+      "text": "Unsere Klassen haben ein Stromaggregat revitalisiert und an die Hauptfeuerwache Villach übergeben.",
+      "bild": ""
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+# Einstellungen für Pages CMS (https://app.pagescms.org)
+media:
+  input: images
+  output: images
+
+content:
+  - name: news
+    label: News
+    type: file
+    path: content/news.json
+    format: json
+    fields:
+      - name: beitraege
+        label: Beiträge
+        type: object
+        list: true
+        fields:
+          - { name: titel, label: Titel, type: string, required: true }
+          - { name: datum, label: Datum, type: date, required: true }
+          - { name: kategorie, label: Kategorie, type: string, description: "z. B. Kfz-Technik, Projekte, Termine" }
+          - { name: text, label: Text, type: text }
+          - { name: bild, label: Foto, type: image }
+
+  - name: team
+    label: Team
+    type: file
+    path: content/team.json
+    format: json
+    fields:
+      - name: leitung
+        label: Direktion und Sekretariat
+        type: object
+        list: true
+        fields:
+          - { name: name, label: Name, type: string, required: true }
+          - { name: rolle, label: Funktion, type: string }
+          - { name: telefon, label: Telefon, type: string }
+          - { name: foto, label: Foto, type: image }
+      - name: lehrer
+        label: Lehrer*innen
+        type: object
+        list: true
+        fields:
+          - { name: name, label: Name, type: string, required: true }
+          - { name: faecher, label: Fächer, type: string }
+          - { name: foto, label: Foto, type: image }
+
+  - name: bilder
+    label: Bilder der Seite
+    type: file
+    path: content/bilder.json
+    format: json
+    fields:
+      - { name: startseite, label: "Großes Bild auf der Startseite", type: image }
+      - { name: teaser_kfz, label: "Lehrberufe-Teaser: Kfz", type: image }
+      - { name: teaser_metall, label: "Lehrberufe-Teaser: Maschinenbau & Metall", type: image }
+      - { name: teaser_elektro, label: "Lehrberufe-Teaser: Elektro", type: image }
+      - { name: lehrberufe, label: "Bild oben auf der Seite Lehrberufe", type: image }

@@ -1,0 +1,225 @@
+{
+  "leitung": [
+    {
+      "name": "BD Ing. Alfred Madrutter, BEd",
+      "rolle": "Direktor",
+      "telefon": "",
+      "foto": ""
+    },
+    {
+      "name": "Ing. Markus Wettl, BEd",
+      "rolle": "Direktor-Stellvertreter",
+      "telefon": "",
+      "foto": ""
+    },
+    {
+      "name": "Maria Fischbacher",
+      "rolle": "Sekretariat",
+      "telefon": "04242 56257-210",
+      "foto": ""
+    },
+    {
+      "name": "Elisabeth Managau",
+      "rolle": "Sekretariat",
+      "telefon": "04242 56257-200",
+      "foto": ""
+    }
+  ],
+  "lehrer": [
+    {
+      "name": "Gebhard Bergner",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Harald Buchleitner",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Mag. Sigrid Diamante-Thelesklav, BEd",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Daniel Ebner",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Ing. Marco Ebner, BEd",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Ing. Herbert Erlacher, BEd",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Claudia Felsinger",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Daniel Haid, BEd",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Caroline Holzer, BEd",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Ing. Günther Hopfgartner",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Mag. Karlheinz Juvan",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Johann Kämmerer",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Johann Klampferer",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Dalibor Krajisnik",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Verena Krall, BEd",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Manuel Kraxner",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Ing. Siegfried Kröpfl",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Joachim Lamprecht",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Ing. Alfred Madrutter, BEd",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Dipl.-Päd. Ing. Joachim Maierwieser",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Matthias Maurer, BEd",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Johannes Messner",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Ing. Dieter Nakent, BEd",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Philipp Novak",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Ing. Mario Olsacher, BEd",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Rudolf Petritsch, BEd",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Christian Prugger",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Robert Ranacher, BEd",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Mag. Horst Rischnig",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Ing. Wolfgang Schöller",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Alexander Steiner, BEd",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Othmar Strießnig, BEd",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Josef Trattnig",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Hannes Unterhohenwarter, BEd",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Joseph Unterlerchner",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Ing. Markus Wettl, BEd",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Eckhard Winkler",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Ing. Wilfried Wohlgemuth, BEd",
+      "faecher": "",
+      "foto": ""
+    },
+    {
+      "name": "Dipl.-Ing. (FH) Wolfgang Zerza, BA BEd",
+      "faecher": "",
+      "foto": ""
+    }
+  ]
+}
