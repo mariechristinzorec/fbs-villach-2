@@ -849,7 +849,7 @@ add_action(
 		}
 		$post = get_post( $id );
 		$z    = fbs_live_ziele();
-		if ( $post && 'page' === $post->post_type && isset( $z[ $post->post_name ] ) && 'kopf' !== $post->post_name ) {
+		if ( $post && 'page' === $post->post_type && isset( $z[ $post->post_name ] ) && ! in_array( $post->post_name, array( 'kopf', 'news' ), true ) ) {
 			wp_safe_redirect( fbs_live_url( $z[ $post->post_name ][1], $z[ $post->post_name ][2] ) );
 			exit;
 		}

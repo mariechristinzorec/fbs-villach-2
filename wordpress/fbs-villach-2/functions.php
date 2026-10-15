@@ -357,29 +357,143 @@ function fbs_category_name() {
 }
 
 /**
- * Eine News-Karte im Loop.
+ * Eine News-Karte (Blog-Vorschau) im Loop.
  *
- * @param int  $i    Position (für die Platzhalterfarbe).
- * @param bool $big  Große Karte.
- * @param bool $full Ganzer Text statt Auszug.
+ * @param int  $i   Position (für die Platzhalterfarbe).
+ * @param bool $big Große Karte.
  */
-function fbs_news_card( $i, $big = false, $full = false ) {
+function fbs_news_card( $i, $big = false ) {
 	$tones = array( '', ' y', ' r' );
+	$link  = get_permalink();
 	echo '<article class="post' . ( $big ? ' big' : '' ) . '">';
 	if ( has_post_thumbnail() ) {
-		echo '<a class="img has-img" href="' . esc_url( get_permalink() ) . '">' . get_the_post_thumbnail( null, 'large', array( 'alt' => get_the_title() ) ) . '</a>';
+		echo '<a class="img has-img" href="' . esc_url( $link ) . '" tabindex="-1" aria-hidden="true">' . get_the_post_thumbnail( null, 'large', array( 'alt' => '' ) ) . '</a>';
 	} else {
-		echo '<div class="img' . esc_attr( $tones[ $i % 3 ] ) . '" data-label="Foto folgt" role="img" aria-label="' . esc_attr( get_the_title() ) . '"></div>';
+		echo '<a class="img' . esc_attr( $tones[ $i % 3 ] ) . '" href="' . esc_url( $link ) . '" data-label="Foto folgt" tabindex="-1" aria-hidden="true"></a>';
 	}
 	echo '<div class="body"><span class="meta">' . esc_html( fbs_category_name() . ' · ' . get_the_date( 'd.m.Y' ) ) . '</span>';
-	echo '<h3><a href="' . esc_url( get_permalink() ) . '" style="color:inherit;text-decoration:none">' . esc_html( get_the_title() ) . '</a></h3>';
-	if ( $full ) {
-		echo '<div class="wp-content">' . apply_filters( 'the_content', get_the_content() ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput
-	} else {
-		echo '<p>' . esc_html( wp_trim_words( wp_strip_all_tags( get_the_content() ), 30 ) ) . '</p>';
+	echo '<h3><a href="' . esc_url( $link ) . '">' . esc_html( get_the_title() ) . '</a></h3>';
+	$auszug = has_excerpt() ? get_the_excerpt() : wp_trim_words( wp_strip_all_tags( strip_shortcodes( get_the_content() ) ), 30 );
+	if ( $auszug ) {
+		echo '<p>' . esc_html( $auszug ) . '</p>';
 	}
+	echo '<a class="more" href="' . esc_url( $link ) . '">Weiterlesen →</a>';
 	echo '</div></article>';
 }
+
+/* News-Übersicht: 9 Beiträge pro Seite. */
+add_action(
+	'pre_get_posts',
+	function ( $q ) {
+		if ( ! is_admin() && $q->is_main_query() && ( $q->is_home() || $q->is_archive() ) ) {
+			$q->set( 'posts_per_page', 9 );
+		}
+	}
+);
+
+/**
+ * Kategorie-Filter über der News-Übersicht.
+ */
+function fbs_news_filter() {
+	$kats = get_categories( array( 'hide_empty' => true ) );
+	$kats = array_filter(
+		$kats,
+		function ( $k ) {
+			return ! in_array( $k->slug, array( 'uncategorized', 'allgemein' ), true );
+		}
+	);
+	if ( count( $kats ) < 2 ) {
+		return;
+	}
+	$aktiv = is_category() ? get_queried_object_id() : 0;
+	echo '<nav class="news-filter" aria-label="Nach Thema filtern"><a href="' . esc_url( fbs_page_url( 'news' ) ) . '"' . ( $aktiv ? '' : ' aria-current="page"' ) . '>Alle</a>';
+	foreach ( $kats as $k ) {
+		echo '<a href="' . esc_url( get_category_link( $k ) ) . '"' . ( $aktiv === $k->term_id ? ' aria-current="page"' : '' ) . '>' . esc_html( $k->name ) . '</a>';
+	}
+	echo '</nav>';
+}
+
+/**
+ * Seitenzahlen unter der News-Übersicht.
+ */
+function fbs_news_seiten() {
+	$links = paginate_links(
+		array(
+			'prev_text' => '← Neuere',
+			'next_text' => 'Ältere →',
+			'type'      => 'plain',
+		)
+	);
+	if ( $links ) {
+		echo '<nav class="pager" aria-label="Seiten">' . $links . '</nav>'; // phpcs:ignore WordPress.Security.EscapeOutput
+	}
+}
+
+/* Im Admin heißen Beiträge „News“. */
+add_filter(
+	'post_type_labels_post',
+	function ( $l ) {
+		$l->name               = 'News';
+		$l->singular_name      = 'News';
+		$l->menu_name          = 'News';
+		$l->name_admin_bar     = 'News';
+		$l->all_items          = 'Alle News';
+		$l->add_new            = 'News schreiben';
+		$l->add_new_item       = 'Neue News schreiben';
+		$l->edit_item          = 'News bearbeiten';
+		$l->new_item           = 'Neue News';
+		$l->view_item          = 'News ansehen';
+		$l->search_items       = 'News durchsuchen';
+		$l->not_found          = 'Keine News gefunden';
+		$l->featured_image     = 'Foto der News';
+		$l->set_featured_image = 'Foto festlegen';
+		$l->item_published     = 'News veröffentlicht.';
+		$l->item_updated       = 'News aktualisiert.';
+		return $l;
+	}
+);
+
+/* „Seiten → News“ öffnet die Liste aller News. */
+add_action(
+	'load-post.php',
+	function () {
+		$id = isset( $_GET['post'] ) ? absint( $_GET['post'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification
+		if ( $id && (int) get_option( 'page_for_posts' ) === $id && ( ! isset( $_GET['action'] ) || 'edit' === $_GET['action'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			wp_safe_redirect( admin_url( 'edit.php' ) );
+			exit;
+		}
+	}
+);
+
+add_filter(
+	'display_post_states',
+	function ( $states, $post ) {
+		if ( (int) get_option( 'page_for_posts' ) === $post->ID ) {
+			$states['page_for_posts'] = 'News-Übersicht (Inhalte unter „News“)';
+		}
+		return $states;
+	},
+	20,
+	2
+);
+
+/* Oben in der schwarzen Leiste auf den News-Seiten: „News schreiben“. */
+add_action(
+	'admin_bar_menu',
+	function ( $bar ) {
+		if ( is_admin() || ! current_user_can( 'edit_posts' ) || ! ( is_home() || is_archive() || is_singular( 'post' ) || is_front_page() ) ) {
+			return;
+		}
+		$bar->add_node(
+			array(
+				'id'    => 'fbs-news-neu',
+				'title' => '📰 News schreiben',
+				'href'  => admin_url( 'post-new.php' ),
+			)
+		);
+	},
+	91
+);
 
 /* ------------------------------------------------------------------ */
 /* Navigation                                                          */

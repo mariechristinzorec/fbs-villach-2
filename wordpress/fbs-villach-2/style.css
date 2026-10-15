@@ -2,7 +2,7 @@
 Theme Name: FBS Villach 2
 Theme URI: https://github.com/mariechristinzorec/fbs-villach-2
 Description: Theme der Fachberufsschule Villach 2. Gelb, Rot, Dunkelgrau. News als Beiträge, Team als eigener Bereich, alle Texte, Bilder und Icons live bearbeitbar (Website bearbeiten).
-Version: 2.0.0
+Version: 2.1.0
 Requires at least: 6.0
 Requires PHP: 7.4
 Text Domain: fbs-villach-2
@@ -267,3 +267,20 @@ h2 em,h3 em,.sec-head em{font-style:normal;color:var(--red)}
 .checklist .sym{position:absolute;left:0;top:0;color:var(--red);font-weight:700}
 .sec-head .go{margin-top:8px;font-weight:700}
 .contact > div{min-width:0}
+
+/* News als Blog (ab Version 2.1) */
+.news-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 18px}
+.news-grid .post .img{aspect-ratio:16/10}
+.post h3 a{color:inherit;text-decoration:none}
+.post h3 a:hover{color:var(--red)}
+.post .more{font-weight:700;margin-top:auto}
+.post .img{display:block}
+.news-filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.news-filter a{border:2px solid var(--fg);padding:4px 12px;text-decoration:none;color:var(--fg);font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:15px;letter-spacing:.03em}
+.news-filter a[aria-current],.news-filter a:hover{background:var(--fg);color:var(--bg)}
+.pager{flex-wrap:wrap;align-items:center}
+.pager .page-numbers{padding:4px 10px;border:2px solid var(--line);text-decoration:none;color:var(--fg)}
+.pager .page-numbers.current{background:var(--red);border-color:var(--red);color:#fff}
+.news-artikel .back{margin-bottom:0}
+@media (max-width:860px){.news-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.news-grid{grid-template-columns:1fr}}
