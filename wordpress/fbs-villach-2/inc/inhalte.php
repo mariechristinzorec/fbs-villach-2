@@ -204,7 +204,7 @@ function fbs_inhalte() {
 			'team_kopf'  => array( 'kopf', fbs_f_kopf( 'Wer wir sind', 'Unser Team', 'Sie haben eine Frage? Das Sekretariat hilft Ihnen weiter oder verbindet Sie mit der richtigen Person.' ) ),
 			'team_knopf' => array( 'knopf', fbs_f_knopf( 'Alle Lehrer*innen ansehen →', 'seite:lehrerinnen' ) ),
 		),
-		'Fotos, Namen und E-Mail-Adressen der Personen ändern Sie im Menü links unter „Team“ (oder auf der Website über „✏️ Foto / Angaben ändern“ bei jeder Person).',
+		'Fotos, Namen und E-Mail-Adressen der Personen ändern Sie im Menü links unter „Team“.',
 	);
 	$s['start_leitbild'] = array(
 		'Team: Leitbild',
@@ -282,7 +282,7 @@ function fbs_inhalte() {
 				),
 			),
 		),
-		'Fotos, Namen und E-Mail-Adressen der Personen ändern Sie im Menü links unter „Team“ (oder auf der Website über „✏️ Foto / Angaben ändern“ bei jeder Person).',
+		'Fotos, Namen und E-Mail-Adressen der Personen ändern Sie im Menü links unter „Team“.',
 	);
 
 	/* News-Seite */

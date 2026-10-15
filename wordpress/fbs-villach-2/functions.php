@@ -279,18 +279,6 @@ function fbs_email_link( $p ) {
 }
 
 /**
- * Kleiner Bearbeiten-Link für angemeldete Lehrer*innen (nicht in der Live-Vorschau).
- *
- * @param WP_Post $p Person.
- */
-function fbs_team_edit_link( $p ) {
-	if ( is_customize_preview() || ! current_user_can( 'edit_post', $p->ID ) ) {
-		return;
-	}
-	echo '<a class="team-edit" href="' . esc_url( get_edit_post_link( $p->ID ) ) . '">✏️ Foto / Angaben ändern</a>';
-}
-
-/**
  * Foto oder Initialen einer Person.
  *
  * @param WP_Post $p     Person.
@@ -361,7 +349,6 @@ add_shortcode(
 				echo '<span class="tel">' . esc_html( $tel ) . '</span>';
 			}
 			fbs_email_link( $p );
-			fbs_team_edit_link( $p );
 			echo '</div>';
 		}
 		echo '</div>';
