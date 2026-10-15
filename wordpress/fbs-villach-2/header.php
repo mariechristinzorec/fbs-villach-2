@@ -3,21 +3,16 @@
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="<?php echo esc_url( get_theme_file_uri( 'favicon.svg' ) ); ?>" type="image/svg+xml">
+<?php if ( ! has_site_icon() ) : ?><link rel="icon" href="<?php echo esc_url( get_theme_file_uri( 'favicon.svg' ) ); ?>" type="image/svg+xml"><?php endif; ?>
 <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<div class="topbar"><div class="wrap">
-  <nav class="switch" aria-label="Schule wählen"><span aria-current="page">FBS Villach 2</span><a href="https://www.bs-villach.at/">FBS Villach 1 →</a></nav>
-  <span><?php echo esc_html( fbs_text( 'fbs_topbar', 'Tiroler Straße 23 · 9500 Villach · 04242 56257-200' ) ); ?></span>
-</div></div>
+<div class="topbar"><?php fbs_teil( 'topbar' ); ?></div>
 
 <header>
   <div class="wrap">
-    <a class="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-      <img src="<?php echo esc_url( get_theme_file_uri( 'logo.png' ) ); ?>" alt="<?php echo esc_attr( fbs_text( 'fbs_logo_alt', 'Fachberufsschule Villach 2, Land Kärnten' ) ); ?>" width="548" height="200">
-    </a>
+    <?php fbs_teil( 'logo' ); ?>
     <nav aria-label="Hauptmenü">
       <ul>
 <?php foreach ( fbs_nav_items() as $item ) : ?>

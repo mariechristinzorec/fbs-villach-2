@@ -1,11 +1,8 @@
 <?php get_header(); ?>
 <section class="band" id="news">
   <div class="wrap">
-    <a class="back" href="<?php echo esc_url( home_url( '/' ) ); ?>">← Zur Startseite</a>
-    <div class="sec-head">
-      <p class="eyebrow">Neuigkeiten</p>
-      <h2>Alle News</h2>
-    </div>
+    <?php fbs_teil( 'ns_zurueck' ); ?>
+    <?php fbs_teil( 'ns_kopf' ); ?>
     <div class="news-all">
 <?php
 $fbs_i = 0;

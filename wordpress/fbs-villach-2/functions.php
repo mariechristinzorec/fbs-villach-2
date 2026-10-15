@@ -9,6 +9,7 @@ defined( 'ABSPATH' ) || exit;
 
 require_once get_template_directory() . '/inc/startinhalte.php';
 require_once get_template_directory() . '/inc/bloecke.php';
+require_once get_template_directory() . '/inc/inhalte.php';
 
 /* ------------------------------------------------------------------ */
 /* Grundeinstellungen                                                  */
@@ -274,45 +275,6 @@ function fbs_avatar( $p, $class = 'avatar' ) {
 	}
 	echo '<div class="' . esc_attr( $class ) . '" aria-hidden="true">' . esc_html( fbs_initialen( get_the_title( $p ) ) ) . '</div>';
 }
-
-/* ------------------------------------------------------------------ */
-/* Kopfzeile und Fußzeile (Design > Customizer > Kopf- und Fußzeile)   */
-/* ------------------------------------------------------------------ */
-
-add_action(
-	'customize_register',
-	function ( $wp_customize ) {
-		$wp_customize->add_section(
-			'fbs_texte',
-			array(
-				'title'    => 'Kopf- und Fußzeile',
-				'priority' => 30,
-			)
-		);
-		$felder = array(
-			'fbs_topbar'  => array( 'Text in der dunklen Leiste ganz oben', 'Tiroler Straße 23 · 9500 Villach · 04242 56257-200' ),
-			'fbs_logo_alt' => array( 'Beschreibung des Logos (für Screenreader)', 'Fachberufsschule Villach 2, Land Kärnten' ),
-			'fbs_footer'  => array( 'Text in der Fußzeile', '© Fachberufsschule Villach 2' ),
-		);
-		foreach ( $felder as $key => $f ) {
-			$wp_customize->add_setting(
-				$key,
-				array(
-					'default'           => $f[1],
-					'sanitize_callback' => 'sanitize_text_field',
-				)
-			);
-			$wp_customize->add_control(
-				$key,
-				array(
-					'label'   => $f[0],
-					'section' => 'fbs_texte',
-					'type'    => 'text',
-				)
-			);
-		}
-	}
-);
 
 /**
  * Text aus dem Customizer.

@@ -258,12 +258,13 @@ function fbs_inhalte_v2( $nur = '' ) {
 	}
 }
 
-/* Design > Vorlage wiederherstellen: eine Seite auf den Ausgangsinhalt zurücksetzen. */
+/* Website bearbeiten > Vorlage wiederherstellen: eine Seite auf den Ausgangsinhalt zurücksetzen. */
 add_action(
 	'admin_menu',
 	function () {
-		add_theme_page( 'Vorlage wiederherstellen', 'Vorlage wiederherstellen', 'edit_pages', 'fbs-vorlage', 'fbs_vorlage_seite' );
-	}
+		add_submenu_page( 'fbs-live', 'Vorlage wiederherstellen', 'Vorlage wiederherstellen', 'edit_theme_options', 'fbs-vorlage', 'fbs_vorlage_seite' );
+	},
+	20
 );
 
 /**
@@ -271,16 +272,22 @@ add_action(
  */
 function fbs_vorlage_seite() {
 	$namen = array(
-		'start'       => 'Startseite',
-		'lehrberufe'  => 'Lehrberufe',
-		'lehrerinnen' => 'Lehrer*innen (Text über den Karteikarten)',
+		'start'       => 'Startseite (alle Texte, Bilder und Icons)',
+		'lehrberufe'  => 'Seite Lehrberufe',
+		'lehrerinnen' => 'Seite Lehrer*innen (Texte über den Karteikarten)',
+		'news'        => 'Seite Alle News (Überschrift)',
+		'kopf'        => 'Kopf- und Fußzeile',
 		'impressum'   => 'Impressum',
 		'datenschutz' => 'Datenschutzerklärung',
 	);
-	if ( isset( $_POST['fbs_seite'], $_POST['fbs_vorlage_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['fbs_vorlage_nonce'] ) ), 'fbs_vorlage' ) && current_user_can( 'edit_pages' ) ) {
+	if ( isset( $_POST['fbs_seite'], $_POST['fbs_vorlage_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['fbs_vorlage_nonce'] ) ), 'fbs_vorlage' ) && current_user_can( 'edit_theme_options' ) ) {
 		$slug = sanitize_key( wp_unslash( $_POST['fbs_seite'] ) );
 		if ( isset( $namen[ $slug ] ) ) {
-			fbs_inhalte_v2( $slug );
+			if ( in_array( $slug, array( 'impressum', 'datenschutz' ), true ) ) {
+				fbs_inhalte_v2( $slug );
+			} else {
+				fbs_panel_zuruecksetzen( 'fbs_p_' . $slug );
+			}
 			echo '<div class="notice notice-success"><p>' . esc_html( $namen[ $slug ] ) . ' wurde auf die Vorlage zurückgesetzt.</p></div>';
 		}
 	}

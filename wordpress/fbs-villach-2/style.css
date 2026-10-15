@@ -1,8 +1,8 @@
 /*
 Theme Name: FBS Villach 2
 Theme URI: https://github.com/mariechristinzorec/fbs-villach-2
-Description: Theme der Fachberufsschule Villach 2. Gelb, Rot, Dunkelgrau. News als Beiträge, Team als eigener Bereich, alle Inhalte im Block-Editor bearbeitbar.
-Version: 1.1.0
+Description: Theme der Fachberufsschule Villach 2. Gelb, Rot, Dunkelgrau. News als Beiträge, Team als eigener Bereich, alle Texte, Bilder und Icons live bearbeitbar (Website bearbeiten).
+Version: 2.0.0
 Requires at least: 6.0
 Requires PHP: 7.4
 Text Domain: fbs-villach-2
@@ -256,3 +256,14 @@ mark{background:var(--yellow);color:#141414;padding:0 4px}
 .fbs-blocks .teasers{margin-bottom:24px}
 .fbs-blocks .extra{margin-top:24px}
 .fbs-blocks .fbs-btn{margin-top:24px}
+
+/* Live bearbeitbare Teile (ab Version 2.0) */
+h2 em,h3 em,.sec-head em{font-style:normal;color:var(--red)}
+.hero h1 em{font-style:normal;color:var(--red)}
+.tile-top{display:flex;align-items:center;gap:10px}
+.tile .ico{font-size:30px;line-height:1}
+.checklist.has-sym li{padding-left:30px}
+.checklist.has-sym li::before{content:none}
+.checklist .sym{position:absolute;left:0;top:0;color:var(--red);font-weight:700}
+.sec-head .go{margin-top:8px;font-weight:700}
+.contact > div{min-width:0}
