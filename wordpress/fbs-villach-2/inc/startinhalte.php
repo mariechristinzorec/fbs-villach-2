@@ -68,7 +68,7 @@ function fbs_startinhalte_anlegen() {
     <p>Für Besucher*innen setzt diese Website keine Cookies und verwendet keine Analyse-, Tracking- oder Werbedienste. Deshalb gibt es auch kein Cookie-Banner. Nur wenn sich Mitarbeiter*innen der Schule zur Bearbeitung der Website anmelden, setzt WordPress technisch notwendige Anmelde-Cookies.</p>
 
     <h3>Webhosting</h3>
-    <p>Die Website wird bei <span class="todo">[Name, Adresse und Website des Hosting-Anbieters ergänzen]</span> in Österreich gehostet. Beim Aufruf einer Seite speichert der Server automatisch technische Daten wie Ihre IP-Adresse, Datum und Uhrzeit, die aufgerufene Seite und den verwendeten Browser. Das ist nötig, um die Website sicher auszuliefern und Angriffe abzuwehren (berechtigtes Interesse, Art. 6 Abs. 1 lit. f DSGVO). Diese Daten werden nach <span class="todo">[Speicherdauer laut Hoster, z. B. 14 Tagen]</span> gelöscht.</p>
+    <p>Die Website wird bei easyname GmbH, Canettistraße 5/10, 1100 Wien (<a href="https://www.easyname.at">www.easyname.at</a>) in Österreich gehostet. Beim Aufruf einer Seite speichert der Server automatisch technische Daten wie Ihre IP-Adresse, Datum und Uhrzeit, die aufgerufene Seite und den verwendeten Browser. Das ist nötig, um die Website sicher auszuliefern und Angriffe abzuwehren (berechtigtes Interesse, Art. 6 Abs. 1 lit. f DSGVO). Diese Daten werden nach <span class="todo">[Speicherdauer laut Hoster, z. B. 14 Tagen]</span> gelöscht.</p>
 
     <h3>Schriften</h3>
     <p>Die verwendeten Schriften sind direkt auf dieser Website gespeichert. Es wird keine Verbindung zu Google Fonts oder anderen Anbietern aufgebaut.</p>
