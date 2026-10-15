@@ -20,69 +20,8 @@ function fbs_startinhalte_anlegen() {
 		'news'        => array( 'News', '' ),
 		'lehrberufe'  => array( 'Lehrberufe', '' ),
 		'lehrerinnen' => array( 'Lehrer*innen', '' ),
-		'impressum'   => array( 'Impressum', '<h3>Kontakt- &amp; Adressdaten</h3>
-    <p><b>Adresse</b><br>Fachberufsschule Villach 2<br>Tiroler Straße 23<br>9500 Villach</p>
-    <p><b>Telefon &amp; Fax</b><br>Telefon: 04242 56257-200<br>Fax: 04242 56257-203</p>
-    <p><b>E-Mail</b><br>villach2@bs.ksn.at</p>
-    <h3>Leiter</h3>
-    <p>BD Ing. Alfred Madrutter, BEd</p>
-    <h3>Für den Inhalt verantwortlich</h3>
-    <p>BD Ing. Alfred Madrutter, BEd</p>
-    <h3>Kontakt</h3>
-    <p>Fragen zur Website richten Sie bitte an die oben genannte E-Mail-Adresse. Informationen zum Umgang mit Ihren Daten finden Sie in der <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
-    <p>© 2026 Fachberufsschule Villach 2</p>' ),
-		'datenschutz' => array( 'Datenschutzerklärung', '<h3>Einleitung und Überblick</h3>
-    <p>Mit dieser Datenschutzerklärung informieren wir Sie darüber, welche personenbezogenen Daten wir verarbeiten, wenn Sie unsere Website besuchen, und welche Rechte Sie haben. Diese Website sammelt so wenige Daten wie möglich.</p>
-
-    <h3>Anwendungsbereich</h3>
-    <p>Diese Datenschutzerklärung gilt für die Website der Fachberufsschule Villach 2. Für andere Websites, auf die wir verlinken, gelten deren eigene Datenschutzerklärungen.</p>
-
-    <h3>Rechtsgrundlagen</h3>
-    <p>Wir verarbeiten personenbezogene Daten nur, wenn eine Rechtsgrundlage nach der Datenschutz-Grundverordnung (DSGVO) besteht. Das sind insbesondere Ihre Einwilligung (Art. 6 Abs. 1 lit. a DSGVO), die Erfüllung rechtlicher Pflichten (Art. 6 Abs. 1 lit. c DSGVO) und unser berechtigtes Interesse an einem sicheren Betrieb der Website (Art. 6 Abs. 1 lit. f DSGVO). Ergänzend gilt das österreichische Datenschutzgesetz (DSG).</p>
-
-    <h3>Kontaktdaten des Verantwortlichen</h3>
-    <p>Fachberufsschule Villach 2<br>BD Ing. Alfred Madrutter, BEd<br>Tiroler Straße 23, 9500 Villach<br>Telefon: 04242 56257-200<br>E-Mail: villach2@bs.ksn.at<br>Impressum: <a href="impressum.html">Impressum</a></p>
-
-    <h3>Speicherdauer</h3>
-    <p>Wir speichern personenbezogene Daten nur so lange, wie es für den jeweiligen Zweck nötig ist oder gesetzliche Aufbewahrungspflichten es verlangen. Danach werden sie gelöscht.</p>
-
-    <h3>Ihre Rechte laut DSGVO</h3>
-    <p>Sie haben das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21). Eine erteilte Einwilligung können Sie jederzeit widerrufen. Wenden Sie sich dazu an die oben genannte Adresse.</p>
-
-    <h3>Österreichische Datenschutzbehörde</h3>
-    <p>Wenn Sie glauben, dass die Verarbeitung Ihrer Daten gegen das Datenschutzrecht verstößt, können Sie sich bei der Österreichischen Datenschutzbehörde beschweren: Barichgasse 40–42, 1030 Wien, <a href="https://www.dsb.gv.at">www.dsb.gv.at</a>.</p>
-
-    <h3>Datenübertragung in Drittländer</h3>
-    <p>Diese Website wird in Österreich gehostet. Eine Übertragung Ihrer Daten in Länder außerhalb der EU findet beim Besuch der Website nicht statt.</p>
-
-    <h3>Sicherheit der Datenverarbeitung</h3>
-    <p>Wir treffen technische und organisatorische Maßnahmen, um Ihre Daten zu schützen. Die Website verwendet keine Kontaktformulare und keine Kommentarfunktion, dadurch fallen kaum Daten an.</p>
-
-    <h3>TLS-Verschlüsselung mit https</h3>
-    <p>Die Website wird ausschließlich verschlüsselt über https übertragen. Sie erkennen das am Schloss-Symbol in der Adresszeile Ihres Browsers.</p>
-
-    <h3>Kommunikation</h3>
-    <p>Wenn Sie uns per Telefon oder E-Mail kontaktieren, verarbeiten wir Ihre Angaben, um Ihre Anfrage zu bearbeiten. Nach Abschluss der Anfrage löschen wir die Daten, sofern keine gesetzliche Aufbewahrungspflicht besteht.</p>
-
-    <h3>Cookies</h3>
-    <p>Für Besucher*innen setzt diese Website keine Cookies und verwendet keine Analyse-, Tracking- oder Werbedienste. Deshalb gibt es auch kein Cookie-Banner. Nur wenn sich Mitarbeiter*innen der Schule zur Bearbeitung der Website anmelden, setzt WordPress technisch notwendige Anmelde-Cookies.</p>
-
-    <h3>Webhosting</h3>
-    <p>Die Website wird bei easyname GmbH, Canettistraße 5/10, 1100 Wien (<a href="https://www.easyname.at">www.easyname.at</a>) in Österreich gehostet. Beim Aufruf einer Seite speichert der Server automatisch technische Daten wie Ihre IP-Adresse, Datum und Uhrzeit, die aufgerufene Seite und den verwendeten Browser. Das ist nötig, um die Website sicher auszuliefern und Angriffe abzuwehren (berechtigtes Interesse, Art. 6 Abs. 1 lit. f DSGVO). Diese Daten werden nach <span class="todo">[Speicherdauer laut Hoster, z. B. 14 Tagen]</span> gelöscht.</p>
-
-    <h3>Schriften</h3>
-    <p>Die verwendeten Schriften sind direkt auf dieser Website gespeichert. Es wird keine Verbindung zu Google Fonts oder anderen Anbietern aufgebaut.</p>
-
-    <h3>Online-Kartendienste und externe Links</h3>
-    <p>Wir binden keine Karten oder Videos ein. Der Link „Anfahrt in Google Maps“ öffnet die Website von Google erst, wenn Sie ihn anklicken. Ab dann gilt die <a href="https://policies.google.com/privacy?hl=de">Datenschutzerklärung von Google</a>. Dasselbe gilt für Links zu Moodle und zur Website der FBS Villach 1.</p>
-
-    <h3>Fotos und Namen</h3>
-    <p>Namen und Fotos von Lehrer*innen und Schüler*innen veröffentlichen wir nur mit deren Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Die Einwilligung kann jederzeit widerrufen werden.</p>
-
-    <h3>Erklärung verwendeter Begriffe</h3>
-    <p><b>Personenbezogene Daten</b> sind alle Informationen, die sich auf eine bestimmte Person beziehen, etwa Name, E-Mail-Adresse oder IP-Adresse.<br><b>Einwilligung</b> ist Ihre freiwillige und eindeutige Zustimmung zu einer bestimmten Verarbeitung Ihrer Daten.</p>
-
-    <p>Stand: Oktober 2026</p>' ),
+		'impressum'   => array( 'Impressum', '' ),
+		'datenschutz' => array( 'Datenschutzerklärung', '' ),
 	);
 	update_option( 'permalink_structure', '/%postname%/' );
 	$links = array(
@@ -230,4 +169,130 @@ function fbs_startinhalte_anlegen() {
 
 	update_option( 'fbs_startinhalte_v1', 1 );
 	flush_rewrite_rules();
+	fbs_inhalte_v2();
+}
+
+/**
+ * Platzhalterbild eines Bildplatzes in die Mediathek holen (einmalig).
+ *
+ * @param string $key Bildplatz.
+ * @return int Anhang-ID.
+ */
+function fbs_platzhalter_id( $key ) {
+	$alt = absint( get_theme_mod( 'fbs_bild_' . $key, 0 ) );
+	if ( $alt && wp_attachment_is_image( $alt ) ) {
+		return $alt;
+	}
+	$ids = get_option( 'fbs_platzhalter_ids', array() );
+	if ( ! empty( $ids[ $key ] ) && wp_attachment_is_image( $ids[ $key ] ) ) {
+		return (int) $ids[ $key ];
+	}
+	require_once ABSPATH . 'wp-admin/includes/image.php';
+	require_once ABSPATH . 'wp-admin/includes/file.php';
+	require_once ABSPATH . 'wp-admin/includes/media.php';
+	$quelle = get_template_directory() . '/platzhalter/' . $key . '.jpg';
+	$tmp    = wp_tempnam( $key . '.jpg' );
+	copy( $quelle, $tmp );
+	$id = media_handle_sideload(
+		array(
+			'name'     => 'platzhalter-' . str_replace( '_', '-', $key ) . '.jpg',
+			'tmp_name' => $tmp,
+		),
+		0,
+		'Platzhalter: bitte ersetzen'
+	);
+	if ( is_wp_error( $id ) ) {
+		return 0;
+	}
+	$ids[ $key ] = $id;
+	update_option( 'fbs_platzhalter_ids', $ids );
+	return $id;
+}
+
+/**
+ * Seiteninhalte als bearbeitbare Blöcke anlegen. Läuft einmal, auch bei bestehenden Installationen.
+ * Seiten, die schon eigene Inhalte haben, bleiben unverändert.
+ */
+function fbs_inhalte_v2( $nur = '' ) {
+	if ( ! $nur && get_option( 'fbs_inhalte_v2' ) ) {
+		return;
+	}
+	if ( ! $nur ) {
+		update_option( 'fbs_inhalte_v2', 1 );
+	}
+
+	$ersetzen = array(
+		'{{url_lehrberufe}}'  => esc_url( fbs_page_url( 'lehrberufe' ) ),
+		'{{url_news}}'        => esc_url( fbs_page_url( 'news' ) ),
+		'{{url_lehrerinnen}}' => esc_url( fbs_page_url( 'lehrerinnen' ) ),
+		'{{url_impressum}}'   => esc_url( fbs_page_url( 'impressum' ) ),
+		'{{url_datenschutz}}' => esc_url( fbs_page_url( 'datenschutz' ) ),
+	);
+	$vorlagen = fbs_block_vorlagen();
+	foreach ( $vorlagen as $slug => $vorlage ) {
+		if ( $nur && $nur !== $slug ) {
+			continue;
+		}
+		$seite = get_page_by_path( $slug );
+		if ( ! $seite ) {
+			continue;
+		}
+		$inhalt  = trim( $seite->post_content );
+		$alt_html = 0 === strpos( $inhalt, '<!-- wp:html -->' ) && $seite->post_modified === $seite->post_date;
+		if ( ! $nur && '' !== $inhalt && ! $alt_html ) {
+			continue;
+		}
+		if ( preg_match_all( '/\{\{(?:id|url):([a-z_]+)\}\}/', $vorlage, $treffer ) ) {
+			foreach ( array_unique( $treffer[1] ) as $key ) {
+				$id                          = fbs_platzhalter_id( $key );
+				$ersetzen[ '{{id:' . $key . '}}' ]  = (string) $id;
+				$ersetzen[ '{{url:' . $key . '}}' ] = esc_url( (string) wp_get_attachment_url( $id ) );
+			}
+		}
+		wp_update_post(
+			array(
+				'ID'           => $seite->ID,
+				'post_content' => wp_slash( strtr( $vorlage, $ersetzen ) ),
+			)
+		);
+	}
+}
+
+/* Design > Vorlage wiederherstellen: eine Seite auf den Ausgangsinhalt zurücksetzen. */
+add_action(
+	'admin_menu',
+	function () {
+		add_theme_page( 'Vorlage wiederherstellen', 'Vorlage wiederherstellen', 'edit_pages', 'fbs-vorlage', 'fbs_vorlage_seite' );
+	}
+);
+
+/**
+ * Seite „Vorlage wiederherstellen“.
+ */
+function fbs_vorlage_seite() {
+	$namen = array(
+		'start'       => 'Startseite',
+		'lehrberufe'  => 'Lehrberufe',
+		'lehrerinnen' => 'Lehrer*innen (Text über den Karteikarten)',
+		'impressum'   => 'Impressum',
+		'datenschutz' => 'Datenschutzerklärung',
+	);
+	if ( isset( $_POST['fbs_seite'], $_POST['fbs_vorlage_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['fbs_vorlage_nonce'] ) ), 'fbs_vorlage' ) && current_user_can( 'edit_pages' ) ) {
+		$slug = sanitize_key( wp_unslash( $_POST['fbs_seite'] ) );
+		if ( isset( $namen[ $slug ] ) ) {
+			fbs_inhalte_v2( $slug );
+			echo '<div class="notice notice-success"><p>' . esc_html( $namen[ $slug ] ) . ' wurde auf die Vorlage zurückgesetzt.</p></div>';
+		}
+	}
+	echo '<div class="wrap"><h1>Vorlage wiederherstellen</h1>';
+	echo '<p>Hier setzen Sie eine Seite auf den ursprünglichen Inhalt mit allen Bereichen zurück. <strong>Ihre Änderungen an dieser Seite gehen dabei verloren.</strong> News, Team und Fotos in der Mediathek bleiben erhalten.</p>';
+	echo '<form method="post">';
+	wp_nonce_field( 'fbs_vorlage', 'fbs_vorlage_nonce' );
+	echo '<p><label for="fbs_seite">Seite: </label><select id="fbs_seite" name="fbs_seite">';
+	foreach ( $namen as $slug => $name ) {
+		echo '<option value="' . esc_attr( $slug ) . '">' . esc_html( $name ) . '</option>';
+	}
+	echo '</select></p>';
+	submit_button( 'Zurücksetzen', 'secondary' );
+	echo '</form></div>';
 }

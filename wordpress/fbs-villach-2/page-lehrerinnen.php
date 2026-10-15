@@ -3,11 +3,7 @@
 <section class="band" id="lehrerinnen">
   <div class="wrap">
     <a class="back" href="<?php echo esc_url( home_url( '/#team' ) ); ?>">← Zur Startseite</a>
-    <div class="sec-head">
-      <p class="eyebrow">Unser Team</p>
-      <h2>Lehrer*innen</h2>
-      <p>An der FBS Villach 2 unterrichten <?php echo (int) count( $fbs_lehrer ); ?> Lehrer*innen. Suchen Sie nach einem Namen oder Fach.</p>
-    </div>
+    <div class="fbs-blocks"><?php while ( have_posts() ) : the_post(); the_content(); endwhile; ?></div>
     <label class="search" for="teacher-search"><span>Name oder Fach suchen</span><input id="teacher-search" type="search" placeholder="z. B. Maurer" autocomplete="off"></label>
     <div class="cards" id="teacher-cards">
 <?php foreach ( $fbs_lehrer as $fbs_p ) : $fbs_f = get_post_meta( $fbs_p->ID, 'fbs_faecher', true ); ?>

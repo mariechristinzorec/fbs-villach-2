@@ -1,8 +1,8 @@
 /*
 Theme Name: FBS Villach 2
 Theme URI: https://github.com/mariechristinzorec/fbs-villach-2
-Description: Theme der Fachberufsschule Villach 2. Gelb, Rot, Dunkelgrau. News als Beiträge, Team als eigener Bereich, Bilder über Design > Customizer.
-Version: 1.0.0
+Description: Theme der Fachberufsschule Villach 2. Gelb, Rot, Dunkelgrau. News als Beiträge, Team als eigener Bereich, alle Inhalte im Block-Editor bearbeitbar.
+Version: 1.1.0
 Requires at least: 6.0
 Requires PHP: 7.4
 Text Domain: fbs-villach-2
@@ -211,3 +211,48 @@ nav a[aria-current="page"]{border-bottom-color:var(--red)}
 /* Offizielles Logo */
 .logo img{height:56px;width:auto;background:#fff;padding:4px 6px;display:block}
 @media (max-width:560px){.logo img{height:44px}}
+
+/* Bilder füllen ihren Platz exakt aus, auch wenn Plugins eigene Bildstile mitbringen */
+.photo,.post .img,.avatar{position:relative}
+.photo.has-img,.post .img.has-img,.avatar.has-img{display:block;overflow:hidden;border:0!important;padding:0!important;opacity:1!important;background:none}
+.photo.has-img img,.post .img.has-img img,.avatar.has-img img{position:absolute!important;inset:0;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover;margin:0!important}
+.fbs-edit{position:absolute;right:8px;top:8px;z-index:2;background:#141414;color:#fff!important;font-family:var(--body);font-size:13px;font-weight:700;letter-spacing:0;text-transform:none;text-decoration:none;padding:4px 10px;opacity:1}
+.fbs-edit:hover{background:var(--red)}
+
+/* ---------- Seiteninhalte aus dem Block-Editor ---------- */
+.fbs-blocks :is(p,h1,h2,h3,figure,.wp-block-group,.wp-block-buttons,.wp-block-image){margin-block:0}
+.fbs-blocks figure{margin-inline:0}
+.hero-text{display:flex;flex-direction:column;gap:16px}
+.hero-text .hero-lead{margin-top:0}
+.hero h1 em{font-style:normal;color:var(--red)}
+.wp-block-buttons.quick{display:grid;gap:10px}
+.wp-block-buttons.quick .wp-block-button{width:100%;margin:0}
+.wp-block-buttons.quick .wp-block-button__link{display:flex;justify-content:space-between;align-items:center;width:100%;background:#141414;color:#fff;border-radius:0;padding:14px 16px;font-family:var(--display);font-weight:700;font-size:19px;text-transform:uppercase;letter-spacing:.02em;text-align:left;text-decoration:none}
+.wp-block-buttons.quick .wp-block-button__link:hover{background:var(--red)}
+.fbs-btn{margin-top:24px}
+.fbs-btn .wp-block-button__link{display:inline-block;background:var(--red);color:#fff;border-radius:0;text-decoration:none;font-family:var(--display);font-weight:700;font-size:18px;text-transform:uppercase;letter-spacing:.03em;padding:12px 18px}
+.fbs-btn .wp-block-button__link:hover{background:#141414}
+.fact .num{display:block;font-family:var(--display);font-size:30px;font-weight:800;color:var(--yellow);font-variant-numeric:tabular-nums;line-height:1}
+.fact p:not(.num){font-size:14px;opacity:.85}
+.tile .go{margin-top:auto!important}
+.tile .go a{font-weight:700}
+.checklist .check{padding-left:26px;position:relative}
+.checklist .check::before{content:"";position:absolute;left:0;top:.45em;width:14px;height:14px;border:2px solid var(--red)}
+.teaser{display:flex;flex-direction:column;gap:8px;min-width:0}
+.teaser p{color:var(--muted);font-size:15px}
+.teaser .photo{aspect-ratio:4/3}
+.job-text p{color:var(--muted);font-size:15px;margin-top:4px}
+.job .no{margin:0}
+.kontakt-box p{color:var(--muted)}
+.kontakt-box p+p{margin-top:8px}
+.wp-block-image.photo{margin:0}
+.wp-block-image.photo img{height:100%}
+.fbs-blocks .wide-photo{margin-bottom:28px}
+.fbs-blocks .sec-head + .wide-photo{margin-top:0}
+mark{background:var(--yellow);color:#141414;padding:0 4px}
+.legal .wp-content > h3{margin-top:20px}
+.fbs-blocks .sec-head{margin-bottom:28px}
+.fbs-blocks .checklist{margin-top:28px}
+.fbs-blocks .teasers{margin-bottom:24px}
+.fbs-blocks .extra{margin-top:24px}
+.fbs-blocks .fbs-btn{margin-top:24px}

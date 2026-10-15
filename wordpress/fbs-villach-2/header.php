@@ -10,13 +10,13 @@
 <?php wp_body_open(); ?>
 <div class="topbar"><div class="wrap">
   <nav class="switch" aria-label="Schule wählen"><span aria-current="page">FBS Villach 2</span><a href="https://www.bs-villach.at/">FBS Villach 1 →</a></nav>
-  <span>Tiroler Straße 23 · 9500 Villach · 04242 56257-200</span>
+  <span><?php echo esc_html( fbs_text( 'fbs_topbar', 'Tiroler Straße 23 · 9500 Villach · 04242 56257-200' ) ); ?></span>
 </div></div>
 
 <header>
   <div class="wrap">
     <a class="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-      <img src="<?php echo esc_url( get_theme_file_uri( 'logo.png' ) ); ?>" alt="Fachberufsschule Villach 2, Land Kärnten" width="548" height="200">
+      <img src="<?php echo esc_url( get_theme_file_uri( 'logo.png' ) ); ?>" alt="<?php echo esc_attr( fbs_text( 'fbs_logo_alt', 'Fachberufsschule Villach 2, Land Kärnten' ) ); ?>" width="548" height="200">
     </a>
     <nav aria-label="Hauptmenü">
       <ul>

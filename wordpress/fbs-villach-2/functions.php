@@ -8,6 +8,7 @@
 defined( 'ABSPATH' ) || exit;
 
 require_once get_template_directory() . '/inc/startinhalte.php';
+require_once get_template_directory() . '/inc/bloecke.php';
 
 /* ------------------------------------------------------------------ */
 /* Grundeinstellungen                                                  */
@@ -20,10 +21,24 @@ add_action(
 		add_theme_support( 'post-thumbnails' );
 		add_theme_support( 'html5', array( 'search-form', 'gallery', 'caption', 'style', 'script' ) );
 		add_theme_support( 'responsive-embeds' );
+		add_theme_support( 'editor-styles' );
+		add_editor_style( array( 'style.css', 'editor.css' ) );
+		register_nav_menus( array( 'haupt' => 'Hauptmenü' ) );
 	}
 );
 
 add_action( 'after_switch_theme', 'fbs_startinhalte_anlegen' );
+
+/* Bestehende Installationen (Theme-Update per ZIP) einmalig auf bearbeitbare Blöcke umstellen. */
+add_action(
+	'init',
+	function () {
+		if ( get_option( 'fbs_startinhalte_v1' ) && ! get_option( 'fbs_inhalte_v2' ) ) {
+			fbs_inhalte_v2();
+		}
+	},
+	20
+);
 
 add_action(
 	'wp_enqueue_scripts',
@@ -35,6 +50,9 @@ add_action(
 		}
 	}
 );
+
+/* Gruppen-Blöcke ohne zusätzlichen inneren Container ausgeben, damit das Raster der Bereiche greift. */
+remove_filter( 'render_block_core/group', 'wp_restore_group_inner_container', 10 );
 
 /* Keine Verbindungen zu Drittanbietern (DSGVO): Emojis von s.w.org abschalten. */
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
@@ -258,52 +276,38 @@ function fbs_avatar( $p, $class = 'avatar' ) {
 }
 
 /* ------------------------------------------------------------------ */
-/* Bilder auf festen Plätzen (Design > Customizer > Bilder der Seite)  */
+/* Kopfzeile und Fußzeile (Design > Customizer > Kopf- und Fußzeile)   */
 /* ------------------------------------------------------------------ */
-
-/**
- * Feste Bildplätze.
- *
- * @return array
- */
-function fbs_bildplaetze() {
-	return array(
-		'startseite'     => 'Großes Bild auf der Startseite',
-		'teaser_kfz'     => 'Lehrberufe-Teaser: Kfz',
-		'teaser_metall'  => 'Lehrberufe-Teaser: Maschinenbau & Metall',
-		'teaser_elektro' => 'Lehrberufe-Teaser: Elektro',
-		'lehrberufe'     => 'Bild oben auf der Seite Lehrberufe',
-	);
-}
 
 add_action(
 	'customize_register',
 	function ( $wp_customize ) {
 		$wp_customize->add_section(
-			'fbs_bilder',
+			'fbs_texte',
 			array(
-				'title'       => 'Bilder der Seite',
-				'description' => 'Ohne Bild erscheint ein Platzhalter.',
-				'priority'    => 30,
+				'title'    => 'Kopf- und Fußzeile',
+				'priority' => 30,
 			)
 		);
-		foreach ( fbs_bildplaetze() as $key => $label ) {
+		$felder = array(
+			'fbs_topbar'  => array( 'Text in der dunklen Leiste ganz oben', 'Tiroler Straße 23 · 9500 Villach · 04242 56257-200' ),
+			'fbs_logo_alt' => array( 'Beschreibung des Logos (für Screenreader)', 'Fachberufsschule Villach 2, Land Kärnten' ),
+			'fbs_footer'  => array( 'Text in der Fußzeile', '© Fachberufsschule Villach 2' ),
+		);
+		foreach ( $felder as $key => $f ) {
 			$wp_customize->add_setting(
-				'fbs_bild_' . $key,
+				$key,
 				array(
-					'default'           => 0,
-					'sanitize_callback' => 'absint',
+					'default'           => $f[1],
+					'sanitize_callback' => 'sanitize_text_field',
 				)
 			);
 			$wp_customize->add_control(
-				new WP_Customize_Media_Control(
-					$wp_customize,
-					'fbs_bild_' . $key,
-					array(
-						'label'     => $label,
-						'section'   => 'fbs_bilder',
-						'mime_type' => 'image',
-					)
+				$key,
+				array(
+					'label'   => $f[0],
+					'section' => 'fbs_texte',
+					'type'    => 'text',
 				)
 			);
 		}
@@ -311,20 +315,67 @@ add_action(
 );
 
 /**
- * Bild eines festen Platzes oder Platzhalter.
+ * Text aus dem Customizer.
  *
- * @param string $key   Bildplatz.
- * @param string $label Beschreibung.
- * @param string $class CSS-Klassen.
+ * @param string $key     Einstellung.
+ * @param string $default Standard.
+ * @return string
  */
-function fbs_photo( $key, $label, $class = 'photo' ) {
-	$id = absint( get_theme_mod( 'fbs_bild_' . $key, 0 ) );
-	if ( $id && wp_attachment_is_image( $id ) ) {
-		echo '<div class="' . esc_attr( $class ) . ' has-img">' . wp_get_attachment_image( $id, 'large', false, array( 'alt' => $label ) ) . '</div>';
-		return;
-	}
-	echo '<div class="' . esc_attr( $class ) . '" role="img" aria-label="' . esc_attr( $label ) . '">Foto einfügen: ' . esc_html( $label ) . '</div>';
+function fbs_text( $key, $default ) {
+	return (string) get_theme_mod( $key, $default );
 }
+
+/* ------------------------------------------------------------------ */
+/* Bausteine für die Seiteninhalte: [fbs_news] und [fbs_leitung]        */
+/* ------------------------------------------------------------------ */
+
+add_shortcode(
+	'fbs_news',
+	function ( $atts ) {
+		$atts = shortcode_atts( array( 'anzahl' => 3 ), $atts, 'fbs_news' );
+		$q    = new WP_Query(
+			array(
+				'posts_per_page'      => max( 1, (int) $atts['anzahl'] ),
+				'ignore_sticky_posts' => true,
+			)
+		);
+		ob_start();
+		echo '<div class="news">';
+		$i = 0;
+		if ( $q->have_posts() ) {
+			while ( $q->have_posts() ) {
+				$q->the_post();
+				fbs_news_card( $i, 0 === $i );
+				$i++;
+			}
+			wp_reset_postdata();
+		} else {
+			echo '<p>Noch keine News.</p>';
+		}
+		echo '</div>';
+		return str_replace( array( "\r", "\n" ), ' ', ob_get_clean() );
+	}
+);
+
+add_shortcode(
+	'fbs_leitung',
+	function () {
+		ob_start();
+		echo '<div class="lead-team">';
+		foreach ( fbs_team( 'leitung' ) as $p ) {
+			echo '<div class="person">';
+			fbs_avatar( $p );
+			echo '<h3>' . esc_html( get_the_title( $p ) ) . '</h3><span class="role">' . esc_html( get_post_meta( $p->ID, 'fbs_rolle', true ) ) . '</span>';
+			$tel = get_post_meta( $p->ID, 'fbs_telefon', true );
+			if ( $tel ) {
+				echo '<span class="tel">' . esc_html( $tel ) . '</span>';
+			}
+			echo '</div>';
+		}
+		echo '</div>';
+		return str_replace( array( "\r", "\n" ), ' ', ob_get_clean() );
+	}
+);
 
 /* ------------------------------------------------------------------ */
 /* News                                                                */
@@ -389,7 +440,29 @@ function fbs_page_url( $slug ) {
  * @return array
  */
 function fbs_nav_items() {
-	$home = home_url( '/' );
+	$home      = home_url( '/' );
+	$locations = get_nav_menu_locations();
+	if ( ! empty( $locations['haupt'] ) ) {
+		$items = wp_get_nav_menu_items( $locations['haupt'] );
+		if ( $items ) {
+			$current = trailingslashit( home_url( add_query_arg( array() ) ) );
+			return array_map(
+				function ( $it ) use ( $current ) {
+					return array(
+						'label'   => $it->title,
+						'url'     => $it->url,
+						'current' => trailingslashit( $it->url ) === $current,
+					);
+				},
+				array_filter(
+					$items,
+					function ( $it ) {
+						return ! $it->menu_item_parent;
+					}
+				)
+			);
+		}
+	}
 	return array(
 		array( 'label' => 'Schüler*innen', 'url' => $home . '#schueler', 'current' => false ),
 		array( 'label' => 'Lehrberufe', 'url' => fbs_page_url( 'lehrberufe' ), 'current' => is_page( 'lehrberufe' ) ),
