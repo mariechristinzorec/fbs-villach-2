@@ -16,8 +16,7 @@
 <header>
   <div class="wrap">
     <a class="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-      <span class="logo-mark">2</span>
-      <span class="logo-text">FBS Villach 2<small>Fachberufsschule · Kompetenzzentrum</small></span>
+      <img src="<?php echo esc_url( get_theme_file_uri( 'logo.png' ) ); ?>" alt="Fachberufsschule Villach 2, Land Kärnten" width="548" height="200">
     </a>
     <nav aria-label="Hauptmenü">
       <ul>

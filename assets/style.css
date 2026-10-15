@@ -187,3 +187,7 @@ footer a{color:var(--yellow)}
 .todo{background:var(--yellow);color:#141414;padding:0 4px}
 nav a[aria-current="page"]{border-bottom-color:var(--red)}
 .post .body{display:flex;flex-direction:column;gap:8px;min-width:0}
+
+/* Offizielles Logo */
+.logo img{height:56px;width:auto;background:#fff;padding:4px 6px;display:block}
+@media (max-width:560px){.logo img{height:44px}}
