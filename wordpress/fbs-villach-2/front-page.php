@@ -44,6 +44,7 @@
 <section class="band" id="team">
   <div class="wrap">
     <?php fbs_teil( 'team_kopf' ); ?>
+    <?php fbs_teil( 'leitbild' ); ?>
     <?php echo do_shortcode( '[fbs_leitung]' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
     <?php fbs_teil( 'team_knopf' ); ?>
   </div>

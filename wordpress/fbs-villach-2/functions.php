@@ -119,6 +119,8 @@ add_action(
 	'add_meta_boxes',
 	function () {
 		add_meta_box( 'fbs_team_daten', 'Angaben', 'fbs_team_metabox', 'fbs_team', 'normal', 'high' );
+		remove_meta_box( 'postimagediv', 'fbs_team', 'side' );
+		add_meta_box( 'postimagediv', 'Foto (anklicken zum Hochladen oder Austauschen)', 'post_thumbnail_meta_box', 'fbs_team', 'normal', 'high' );
 	}
 );
 
@@ -134,7 +136,7 @@ function fbs_team_metabox( $post ) {
 	$felder  = array(
 		'fbs_rolle'   => array( 'Funktion', 'z. B. Direktor, Sekretariat (nur für Startseite)' ),
 		'fbs_telefon' => array( 'Telefon', 'z. B. 04242 56257-200 (optional)' ),
-		'fbs_faecher' => array( 'Fächer', 'z. B. AWL, PB, DUK (für Lehrer*innen)' ),
+		'fbs_email'   => array( 'E-Mail', 'z. B. vorname.nachname@bs.ksn.at' ),
 	);
 	echo '<p><label for="fbs_bereich"><strong>Wo soll die Person erscheinen?</strong></label><br>';
 	echo '<select id="fbs_bereich" name="fbs_bereich">';
@@ -150,7 +152,7 @@ function fbs_team_metabox( $post ) {
 			esc_attr( $f[1] )
 		);
 	}
-	echo '<p class="description">Das Foto legen Sie rechts unter „Foto festlegen“ fest. Die Reihenfolge ändern Sie rechts unter „Reihenfolge“ (kleinere Zahl steht weiter vorne).</p>';
+	echo '<p class="description">Das Foto legen Sie unten im Feld „Foto“ fest. Die Reihenfolge ändern Sie rechts unter „Reihenfolge“ (kleinere Zahl steht weiter vorne).</p>';
 }
 
 add_action(
@@ -167,7 +169,7 @@ add_action(
 		}
 		$bereich = isset( $_POST['fbs_bereich'] ) && 'leitung' === $_POST['fbs_bereich'] ? 'leitung' : 'lehrer';
 		update_post_meta( $post_id, 'fbs_bereich', $bereich );
-		foreach ( array( 'fbs_rolle', 'fbs_telefon', 'fbs_faecher' ) as $key ) {
+		foreach ( array( 'fbs_rolle', 'fbs_telefon', 'fbs_email' ) as $key ) {
 			$wert = isset( $_POST[ $key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $key ] ) ) : '';
 			update_post_meta( $post_id, $key, $wert );
 		}
@@ -182,7 +184,8 @@ add_filter(
 			'cb'          => $cols['cb'],
 			'title'       => 'Name',
 			'fbs_bereich' => 'Erscheint auf',
-			'fbs_info'    => 'Funktion / Fächer',
+			'fbs_foto'    => 'Foto',
+			'fbs_info'    => 'Funktion / E-Mail',
 		);
 	}
 );
@@ -192,10 +195,11 @@ add_action(
 		if ( 'fbs_bereich' === $col ) {
 			echo 'leitung' === get_post_meta( $post_id, 'fbs_bereich', true ) ? 'Startseite' : 'Lehrer*innen';
 		}
+		if ( 'fbs_foto' === $col ) {
+			echo has_post_thumbnail( $post_id ) ? get_the_post_thumbnail( $post_id, array( 48, 48 ), array( 'style' => 'width:48px;height:48px;object-fit:cover' ) ) : '<span style="color:#888">kein Foto</span>'; // phpcs:ignore WordPress.Security.EscapeOutput
+		}
 		if ( 'fbs_info' === $col ) {
-			$info = get_post_meta( $post_id, 'fbs_rolle', true );
-			$info = $info ? $info : get_post_meta( $post_id, 'fbs_faecher', true );
-			echo esc_html( $info );
+			echo esc_html( implode( ' · ', array_filter( array( get_post_meta( $post_id, 'fbs_rolle', true ), get_post_meta( $post_id, 'fbs_email', true ) ) ) ) );
 		}
 	},
 	10,
@@ -260,6 +264,30 @@ function fbs_initialen( $name ) {
 	$erst = mb_substr( $teile[0], 0, 1 );
 	$letz = count( $teile ) > 1 ? mb_substr( end( $teile ), 0, 1 ) : '';
 	return mb_strtoupper( $erst . $letz );
+}
+
+/**
+ * E-Mail-Link einer Person.
+ *
+ * @param WP_Post $p Person.
+ */
+function fbs_email_link( $p ) {
+	$mail = sanitize_email( (string) get_post_meta( $p->ID, 'fbs_email', true ) );
+	if ( $mail ) {
+		echo '<a class="mail" href="mailto:' . esc_attr( antispambot( $mail ) ) . '">' . esc_html( antispambot( $mail ) ) . '</a>';
+	}
+}
+
+/**
+ * Kleiner Bearbeiten-Link für angemeldete Lehrer*innen (nicht in der Live-Vorschau).
+ *
+ * @param WP_Post $p Person.
+ */
+function fbs_team_edit_link( $p ) {
+	if ( is_customize_preview() || ! current_user_can( 'edit_post', $p->ID ) ) {
+		return;
+	}
+	echo '<a class="team-edit" href="' . esc_url( get_edit_post_link( $p->ID ) ) . '">✏️ Foto / Angaben ändern</a>';
 }
 
 /**
@@ -332,6 +360,8 @@ add_shortcode(
 			if ( $tel ) {
 				echo '<span class="tel">' . esc_html( $tel ) . '</span>';
 			}
+			fbs_email_link( $p );
+			fbs_team_edit_link( $p );
 			echo '</div>';
 		}
 		echo '</div>';

@@ -204,6 +204,20 @@ function fbs_inhalte() {
 			'team_kopf'  => array( 'kopf', fbs_f_kopf( 'Wer wir sind', 'Unser Team', 'Sie haben eine Frage? Das Sekretariat hilft Ihnen weiter oder verbindet Sie mit der richtigen Person.' ) ),
 			'team_knopf' => array( 'knopf', fbs_f_knopf( 'Alle Lehrer*innen ansehen →', 'seite:lehrerinnen' ) ),
 		),
+		'Fotos, Namen und E-Mail-Adressen der Personen ändern Sie im Menü links unter „Team“ (oder auf der Website über „✏️ Foto / Angaben ändern“ bei jeder Person).',
+	);
+	$s['start_leitbild'] = array(
+		'Team: Leitbild',
+		array(
+			'leitbild' => array(
+				'leitbild',
+				array(
+					'icon'  => array( 'icon', 'Icon (Emoji, leer = kein Icon)', '🧭' ),
+					'titel' => array( 'text', 'Überschrift (leer = Leitbild ausblenden)', 'Unser Leitbild' ),
+					'text'  => array( 'textarea', 'Text des Leitbilds (Leerzeile = neuer Absatz)', 'Hier steht das Leitbild der FBS Villach 2. Klicken Sie auf den Stift und fügen Sie den Text ein.' ),
+				),
+			),
+		),
 	);
 	$s['start_kontakt'] = array( 'Kontakt: Überschrift', array( 'kontakt_kopf' => array( 'kopf', fbs_f_kopf( 'Kontakt', 'So erreichen Sie uns' ) ) ) );
 	for ( $i = 1; $i <= 6; $i++ ) {
@@ -258,17 +272,17 @@ function fbs_inhalte() {
 		'Überschrift und Suche',
 		array(
 			'le_zurueck' => array( 'zurueck', array( 'text' => array( 'text', 'Link zurück (oben)', '← Zur Startseite' ) ) ),
-			'le_kopf'    => array( 'kopf', fbs_f_kopf( 'Unser Team', 'Lehrer*innen', 'An der FBS Villach 2 unterrichten unsere Lehrer*innen. Suchen Sie nach einem Namen oder Fach.' ) ),
+			'le_kopf'    => array( 'kopf', fbs_f_kopf( 'Unser Team', 'Lehrer*innen', 'An der FBS Villach 2 unterrichten unsere Lehrer*innen. Suchen Sie nach einem Namen.' ) ),
 			'le_suche'   => array(
 				'suche',
 				array(
-					'label'       => array( 'text', 'Beschriftung des Suchfelds', 'Name oder Fach suchen' ),
+					'label'       => array( 'text', 'Beschriftung des Suchfelds', 'Name suchen' ),
 					'platzhalter' => array( 'text', 'Beispiel im Suchfeld', 'z. B. Maurer' ),
 					'leer'        => array( 'text', 'Text, wenn nichts gefunden wird', 'Kein Treffer. Prüfen Sie die Schreibweise.' ),
-					'ohnefach'    => array( 'text', 'Text, wenn bei einer Person keine Fächer eingetragen sind', 'Fächer folgen' ),
 				),
 			),
 		),
+		'Fotos, Namen und E-Mail-Adressen der Personen ändern Sie im Menü links unter „Team“ (oder auf der Website über „✏️ Foto / Angaben ändern“ bei jeder Person).',
 	);
 
 	/* News-Seite */
@@ -547,6 +561,23 @@ function fbs_teil_html( $teil ) {
 			$o .= '</div>';
 			break;
 
+		case 'leitbild':
+			if ( ! trim( $w( 'titel' ) ) ) {
+				return fbs_leer( $teil );
+			}
+			$o = '<div class="leitbild"' . $attr . '>';
+			if ( trim( $w( 'icon' ) ) ) {
+				$o .= '<span class="ico" aria-hidden="true">' . esc_html( $w( 'icon' ) ) . '</span>';
+			}
+			$o .= '<div><h3>' . fbs_html( $w( 'titel' ) ) . '</h3>';
+			foreach ( preg_split( '/\R\s*\R/', trim( (string) $w( 'text' ) ) ) as $absatz ) {
+				if ( trim( $absatz ) ) {
+					$o .= '<p>' . fbs_html( $absatz, true ) . '</p>';
+				}
+			}
+			$o .= '</div></div>';
+			break;
+
 		case 'zurueck':
 			$o = '<a class="back"' . $attr . ' href="' . esc_url( 'le_zurueck' === $teil ? home_url( '/#team' ) : home_url( '/' ) ) . '">' . fbs_html( $w( 'text' ) ) . '</a>';
 			break;
@@ -638,8 +669,9 @@ add_action(
 				$wp_customize->add_section(
 					'fbs_s_' . $bereich_id,
 					array(
-						'title'    => $bereich[0],
-						'panel'    => $panel_id,
+						'title'       => $bereich[0],
+						'description' => $bereich[2] ?? '',
+						'panel'       => $panel_id,
 						'priority' => $sp++,
 					)
 				);
