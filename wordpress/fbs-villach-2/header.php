@@ -3,7 +3,7 @@
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<?php if ( ! has_site_icon() ) : ?><link rel="icon" href="<?php echo esc_url( get_theme_file_uri( 'favicon.svg' ) ); ?>" type="image/svg+xml"><?php endif; ?>
+<?php if ( ! has_site_icon() ) : ?><link rel="icon" href="<?php echo esc_url( get_theme_file_uri( 'favicon.svg' ) ); ?>" type="image/svg+xml"><link rel="apple-touch-icon" href="<?php echo esc_url( get_theme_file_uri( 'favicon.png' ) ); ?>"><?php endif; ?>
 <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
