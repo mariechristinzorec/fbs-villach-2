@@ -650,6 +650,33 @@ function fbs_ist_seite( $seite ) {
 add_action(
 	'customize_register',
 	function ( $wp_customize ) {
+		if ( ! class_exists( 'FBS_Link_Control' ) ) {
+			/**
+			 * Link-Feld mit Knopf zum Hochladen oder Auswählen einer Datei (z. B. PDF) aus der Mediathek.
+			 */
+			class FBS_Link_Control extends WP_Customize_Control {
+				/**
+				 * Typ.
+				 *
+				 * @var string
+				 */
+				public $type = 'fbs_link';
+
+				/**
+				 * Feld ausgeben.
+				 */
+				public function render_content() {
+					echo '<label><span class="customize-control-title">' . esc_html( $this->label ) . '</span>';
+					if ( $this->description ) {
+						echo '<span class="description customize-control-description">' . esc_html( $this->description ) . '</span>';
+					}
+					echo '<input type="text" value="' . esc_attr( $this->value() ) . '" ';
+					$this->link();
+					echo '></label>';
+					echo '<p style="margin:6px 0 0"><button type="button" class="button fbs-datei">📄 PDF hochladen / auswählen</button></p>';
+				}
+			}
+		}
 		$prio = 1;
 		foreach ( fbs_inhalte() as $panel_id => $p ) {
 			$seite = $p[1];
@@ -698,6 +725,20 @@ add_action(
 										'description' => 'Foto auswählen oder hochladen. „Entfernen“ zeigt wieder den Platzhalter.',
 										'section'     => 'fbs_s_' . $bereich_id,
 										'mime_type'   => 'image',
+									)
+								)
+							);
+							continue;
+						}
+						if ( 'url' === $f[0] ) {
+							$wp_customize->add_control(
+								new FBS_Link_Control(
+									$wp_customize,
+									$id,
+									array(
+										'label'       => $f[1],
+										'description' => 'PDF oder andere Datei: auf „PDF hochladen / auswählen“ klicken. Oder eine Internet-Adresse (https://…) eintippen.',
+										'section'     => 'fbs_s_' . $bereich_id,
 									)
 								)
 							);
@@ -786,6 +827,18 @@ function fbs_sanitize_url( $v ) {
 function fbs_sanitize_bild( $v ) {
 	return absint( $v );
 }
+
+/* Knopf „PDF hochladen / auswählen“: öffnet die Mediathek und trägt die Adresse der Datei ein. */
+add_action(
+	'customize_controls_enqueue_scripts',
+	function () {
+		wp_enqueue_media();
+		wp_add_inline_script(
+			'customize-controls',
+			'jQuery(function($){$(document).on("click",".fbs-datei",function(e){e.preventDefault();var input=$(this).closest(".customize-control").find("input[type=text]");var frame=wp.media({title:"Datei auswählen oder hochladen",button:{text:"Diese Datei verwenden"},multiple:false});frame.on("select",function(){var a=frame.state().get("selection").first().toJSON();input.val(a.url).trigger("change");});frame.open();});});'
+		);
+	}
+);
 
 /* Leere Teile in der Vorschau sichtbar machen, damit man sie wieder befüllen kann. */
 add_action(

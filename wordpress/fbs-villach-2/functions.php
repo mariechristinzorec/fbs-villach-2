@@ -30,6 +30,21 @@ add_action(
 
 add_action( 'after_switch_theme', 'fbs_startinhalte_anlegen' );
 
+/* Nach jedem Theme-Update (ZIP) die Link-Regeln neu schreiben, damit „Weiterlesen“ und Unterseiten funktionieren. */
+add_action(
+	'admin_init',
+	function () {
+		$version = wp_get_theme( get_template() )->get( 'Version' );
+		if ( get_option( 'fbs_theme_version' ) !== $version ) {
+			if ( ! get_option( 'permalink_structure' ) ) {
+				update_option( 'permalink_structure', '/%postname%/' );
+			}
+			flush_rewrite_rules();
+			update_option( 'fbs_theme_version', $version );
+		}
+	}
+);
+
 /* Bestehende Installationen (Theme-Update per ZIP) einmalig auf bearbeitbare Blöcke umstellen. */
 add_action(
 	'init',

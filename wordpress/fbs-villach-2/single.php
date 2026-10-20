@@ -8,7 +8,13 @@
 <?php if ( has_post_thumbnail() ) : ?>
     <div class="single-hero"><?php the_post_thumbnail( 'large' ); ?></div>
 <?php endif; ?>
+<?php if ( trim( wp_strip_all_tags( get_the_content(), true ) ) || has_blocks() ) : ?>
     <div class="wp-content"><?php the_content(); ?></div>
+<?php elseif ( has_excerpt() ) : ?>
+    <div class="wp-content"><p><?php echo esc_html( get_the_excerpt() ); ?></p></div>
+<?php else : ?>
+    <p class="empty">Zu dieser News gibt es noch keinen Text.</p>
+<?php endif; ?>
   </article>
 </section>
 <?php endwhile; ?>
