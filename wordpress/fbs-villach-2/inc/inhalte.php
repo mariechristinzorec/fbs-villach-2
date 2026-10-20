@@ -883,6 +883,7 @@ function fbs_live_ziele() {
 		'lehrerinnen' => array( 'Lehrer*innen', 'fbs_p_lehrerinnen', fbs_page_url( 'lehrerinnen' ) ),
 		'news'        => array( 'Seite Alle News', 'fbs_p_news', fbs_page_url( 'news' ) ),
 		'kopf'        => array( 'Kopf- und Fußzeile', 'fbs_p_kopf', home_url( '/' ) ),
+		'menue'       => array( 'Menü oben', 'nav_menus', home_url( '/' ) ),
 	);
 }
 

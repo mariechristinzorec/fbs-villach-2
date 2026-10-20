@@ -45,6 +45,55 @@ add_action(
 	}
 );
 
+/* Hauptmenü einmalig mit den bisherigen Menüpunkten anlegen, damit es unter Design → Menüs bearbeitbar ist. */
+add_action(
+	'admin_init',
+	function () {
+		if ( get_option( 'fbs_menu_v1' ) || ! current_user_can( 'edit_theme_options' ) ) {
+			return;
+		}
+		update_option( 'fbs_menu_v1', 1 );
+		$orte = get_nav_menu_locations();
+		if ( ! empty( $orte['haupt'] ) ) {
+			return;
+		}
+		$menu = wp_get_nav_menu_object( 'Hauptmenü' );
+		$id   = $menu ? $menu->term_id : wp_create_nav_menu( 'Hauptmenü' );
+		if ( is_wp_error( $id ) ) {
+			return;
+		}
+		if ( ! $menu ) {
+			$home   = home_url( '/' );
+			$punkte = array(
+				array( 'Schüler*innen', $home . '#schueler', 0 ),
+				array( 'Lehrberufe', '', get_page_by_path( 'lehrberufe' ) ),
+				array( 'News', '', get_page_by_path( 'news' ) ),
+				array( 'Team', $home . '#team', 0 ),
+				array( 'Lehrer*innen', '', get_page_by_path( 'lehrerinnen' ) ),
+				array( 'Kontakt', $home . '#kontakt', 0 ),
+			);
+			foreach ( $punkte as $i => $pk ) {
+				$daten = array(
+					'menu-item-title'    => $pk[0],
+					'menu-item-status'   => 'publish',
+					'menu-item-position' => $i + 1,
+				);
+				if ( $pk[2] instanceof WP_Post ) {
+					$daten['menu-item-type']      = 'post_type';
+					$daten['menu-item-object']    = 'page';
+					$daten['menu-item-object-id'] = $pk[2]->ID;
+				} else {
+					$daten['menu-item-type'] = 'custom';
+					$daten['menu-item-url']  = $pk[1] ? $pk[1] : $home;
+				}
+				wp_update_nav_menu_item( $id, 0, $daten );
+			}
+		}
+		$orte['haupt'] = $id;
+		set_theme_mod( 'nav_menu_locations', $orte );
+	}
+);
+
 /* Bestehende Installationen (Theme-Update per ZIP) einmalig auf bearbeitbare Blöcke umstellen. */
 add_action(
 	'init',
@@ -558,7 +607,7 @@ function fbs_nav_items() {
 					return array(
 						'label'   => $it->title,
 						'url'     => $it->url,
-						'current' => trailingslashit( $it->url ) === $current,
+						'current' => trailingslashit( $it->url ) === $current || ( 'page' === $it->object && (int) $it->object_id === get_queried_object_id() && ! is_front_page() ) || ( 'News' === $it->title && ( is_singular( 'post' ) || is_archive() ) ),
 					);
 				},
 				array_filter(
