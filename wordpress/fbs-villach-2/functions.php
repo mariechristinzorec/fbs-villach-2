@@ -112,6 +112,7 @@ add_action(
 	function () {
 		$version = wp_get_theme()->get( 'Version' );
 		wp_enqueue_style( 'fbs-villach-2', get_stylesheet_uri(), array(), $version );
+		wp_enqueue_script( 'fbs-menue', get_theme_file_uri( 'js/menue.js' ), array(), $version, true );
 		if ( is_page( 'lehrerinnen' ) ) {
 			wp_enqueue_script( 'fbs-lehrer-suche', get_theme_file_uri( 'js/lehrer-suche.js' ), array(), $version, true );
 		}

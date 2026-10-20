@@ -2,7 +2,7 @@
 Theme Name: FBS Villach 2
 Theme URI: https://github.com/mariechristinzorec/fbs-villach-2
 Description: Theme der Fachberufsschule Villach 2. Gelb, Rot, Dunkelgrau. News als Beiträge, Team als eigener Bereich, alle Texte, Bilder und Icons live bearbeitbar (Website bearbeiten).
-Version: 2.5.1
+Version: 2.6.0
 Requires at least: 6.0
 Requires PHP: 7.4
 Text Domain: fbs-villach-2
@@ -299,3 +299,23 @@ h2 em,h3 em,.sec-head em{font-style:normal;color:var(--red)}
 .wp-content video,.wp-content audio,.wp-content iframe{width:100%;max-width:100%;display:block}
 .wp-content .wp-block-video,.wp-content .wp-block-audio,.wp-content .wp-block-embed{margin:8px 0}
 .wp-content .wp-block-embed__wrapper iframe{aspect-ratio:16/9;height:auto}
+
+/* Handy: Menü-Knopf mit aufklappbarer Liste (ab Version 2.6) */
+.menu-toggle{display:none}
+@media (max-width:860px){
+  .js .menu-toggle{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:10px 16px;background:#141414;color:#fff;border:0;font-family:var(--display);font-weight:700;font-size:18px;text-transform:uppercase;letter-spacing:.04em;cursor:pointer}
+  .burger,.burger::before,.burger::after{display:block;width:22px;height:3px;background:var(--yellow);position:relative;transition:transform .2s,background .2s}
+  .burger::before,.burger::after{content:"";position:absolute;left:0}
+  .burger::before{top:-7px}.burger::after{top:7px}
+  .menu-open .burger{background:transparent}
+  .menu-open .burger::before{transform:translateY(7px) rotate(45deg)}
+  .menu-open .burger::after{transform:translateY(-7px) rotate(-45deg)}
+  .js header nav{display:none;flex-basis:100%}
+  .js header.menu-open nav{display:block}
+  header nav ul{flex-direction:column;gap:0;border-top:2px solid #141414}
+  header nav li{border-bottom:1px solid rgba(0,0,0,.18)}
+  header nav a{display:block;padding:14px 4px;font-size:19px;border-bottom:0}
+  header nav a[aria-current="page"]{color:var(--red);border-bottom:0}
+  header nav a:hover{border-bottom:0;color:var(--red)}
+  .js header.menu-open{max-height:100vh;overflow-y:auto}
+}
