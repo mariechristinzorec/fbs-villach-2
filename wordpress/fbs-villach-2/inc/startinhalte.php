@@ -276,6 +276,7 @@ function fbs_vorlage_seite() {
 		'lehrberufe'  => 'Seite Lehrberufe',
 		'lehrerinnen' => 'Seite Lehrer*innen (Texte über den Karteikarten)',
 		'news'        => 'Seite Alle News (Überschrift)',
+		'projekte'    => 'Seite Schülerprojekte (Überschrift)',
 		'kopf'        => 'Kopf- und Fußzeile',
 		'impressum'   => 'Impressum',
 		'datenschutz' => 'Datenschutzerklärung',

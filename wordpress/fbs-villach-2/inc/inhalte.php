@@ -296,6 +296,18 @@ function fbs_inhalte() {
 		),
 	);
 
+	/* Schülerprojekte */
+	$pr = array(
+		'projekte_seite' => array(
+			'Überschrift',
+			array(
+				'pr_zurueck' => array( 'zurueck', array( 'text' => array( 'text', 'Link zurück (oben)', '← Zur Startseite' ) ) ),
+				'pr_kopf'    => array( 'kopf', fbs_f_kopf( 'Aus dem Unterricht', 'Schülerprojekte', 'Videos und Podcasts, die unsere Schüler*innen im Unterricht gestaltet haben.' ) ),
+				'pr_leer'    => array( 'hinweis', array( 'text' => array( 'text', 'Text, solange noch kein Projekt veröffentlicht ist', 'Hier erscheinen bald die ersten Projekte.' ) ) ),
+			),
+		),
+	);
+
 	/* Kopf- und Fußzeile */
 	$k = array(
 		'kopfzeile' => array(
@@ -319,6 +331,7 @@ function fbs_inhalte() {
 		'fbs_p_lehrberufe'  => array( 'Seite Lehrberufe', 'lehrberufe', $l ),
 		'fbs_p_lehrerinnen' => array( 'Seite Lehrer*innen', 'lehrerinnen', $t ),
 		'fbs_p_news'        => array( 'Seite Alle News', 'news', $n ),
+		'fbs_p_projekte'    => array( 'Seite Schülerprojekte', 'projekte', $pr ),
 		'fbs_p_kopf'        => array( 'Kopf- und Fußzeile (alle Seiten)', '', $k ),
 	);
 	return $cache;
@@ -578,6 +591,10 @@ function fbs_teil_html( $teil ) {
 			$o .= '</div></div>';
 			break;
 
+		case 'hinweis':
+			$o = '<p class="empty"' . $attr . '>' . fbs_html( $w( 'text' ) ) . '</p>';
+			break;
+
 		case 'zurueck':
 			$o = '<a class="back"' . $attr . ' href="' . esc_url( 'le_zurueck' === $teil ? home_url( '/#team' ) : home_url( '/' ) ) . '">' . fbs_html( $w( 'text' ) ) . '</a>';
 			break;
@@ -639,7 +656,9 @@ function fbs_ist_seite( $seite ) {
 		case 'start':
 			return is_front_page();
 		case 'news':
-			return is_home() || is_archive();
+			return is_home() || is_category() || is_tag() || is_date();
+		case 'projekte':
+			return is_post_type_archive( 'fbs_projekt' );
 		case '':
 			return true;
 		default:
@@ -882,6 +901,7 @@ function fbs_live_ziele() {
 		'lehrberufe'  => array( 'Lehrberufe', 'fbs_p_lehrberufe', fbs_page_url( 'lehrberufe' ) ),
 		'lehrerinnen' => array( 'Lehrer*innen', 'fbs_p_lehrerinnen', fbs_page_url( 'lehrerinnen' ) ),
 		'news'        => array( 'Seite Alle News', 'fbs_p_news', fbs_page_url( 'news' ) ),
+		'projekte'    => array( 'Schülerprojekte', 'fbs_p_projekte', home_url( '/schuelerprojekte/' ) ),
 		'kopf'        => array( 'Kopf- und Fußzeile', 'fbs_p_kopf', home_url( '/' ) ),
 		'menue'       => array( 'Menü oben', 'nav_menus', home_url( '/' ) ),
 	);
@@ -963,7 +983,7 @@ add_action(
 			return;
 		}
 		$z    = fbs_live_ziele();
-		$slug = is_front_page() ? 'start' : ( is_home() ? 'news' : ( is_page( array( 'lehrberufe', 'lehrerinnen' ) ) ? get_post_field( 'post_name', get_queried_object_id() ) : '' ) );
+		$slug = is_front_page() ? 'start' : ( is_home() ? 'news' : ( is_post_type_archive( 'fbs_projekt' ) ? 'projekte' : ( is_page( array( 'lehrberufe', 'lehrerinnen' ) ) ? get_post_field( 'post_name', get_queried_object_id() ) : '' ) ) );
 		if ( $slug && isset( $z[ $slug ] ) ) {
 			$bar->remove_node( 'edit' );
 			$bar->add_node(

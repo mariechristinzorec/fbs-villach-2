@@ -10,6 +10,8 @@ defined( 'ABSPATH' ) || exit;
 require_once get_template_directory() . '/inc/startinhalte.php';
 require_once get_template_directory() . '/inc/bloecke.php';
 require_once get_template_directory() . '/inc/inhalte.php';
+require_once get_template_directory() . '/inc/team-liste.php';
+require_once get_template_directory() . '/inc/projekte.php';
 
 /* ------------------------------------------------------------------ */
 /* Grundeinstellungen                                                  */
@@ -607,7 +609,7 @@ function fbs_nav_items() {
 					return array(
 						'label'   => $it->title,
 						'url'     => $it->url,
-						'current' => trailingslashit( $it->url ) === $current || ( 'page' === $it->object && (int) $it->object_id === get_queried_object_id() && ! is_front_page() ) || ( 'News' === $it->title && ( is_singular( 'post' ) || is_archive() ) ),
+						'current' => trailingslashit( $it->url ) === $current || ( 'page' === $it->object && (int) $it->object_id === get_queried_object_id() && ! is_front_page() ) || ( 'News' === $it->title && ( is_singular( 'post' ) || is_category() ) ) || ( 'fbs_projekt' === $it->object && ( is_post_type_archive( 'fbs_projekt' ) || is_singular( 'fbs_projekt' ) ) ),
 					);
 				},
 				array_filter(
@@ -623,6 +625,7 @@ function fbs_nav_items() {
 		array( 'label' => 'Schüler*innen', 'url' => $home . '#schueler', 'current' => false ),
 		array( 'label' => 'Lehrberufe', 'url' => fbs_page_url( 'lehrberufe' ), 'current' => is_page( 'lehrberufe' ) ),
 		array( 'label' => 'News', 'url' => fbs_page_url( 'news' ), 'current' => is_home() || is_singular( 'post' ) || is_archive() ),
+		array( 'label' => 'Schülerprojekte', 'url' => home_url( '/schuelerprojekte/' ), 'current' => is_post_type_archive( 'fbs_projekt' ) || is_singular( 'fbs_projekt' ) ),
 		array( 'label' => 'Team', 'url' => $home . '#team', 'current' => false ),
 		array( 'label' => 'Lehrer*innen', 'url' => fbs_page_url( 'lehrerinnen' ), 'current' => is_page( 'lehrerinnen' ) ),
 		array( 'label' => 'Kontakt', 'url' => $home . '#kontakt', 'current' => false ),
