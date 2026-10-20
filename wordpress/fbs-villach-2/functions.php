@@ -409,7 +409,6 @@ function fbs_news_card( $i, $big = false ) {
 	if ( $auszug ) {
 		echo '<p>' . esc_html( $auszug ) . '</p>';
 	}
-	echo '<a class="more" href="' . esc_url( $link ) . '">Weiterlesen →</a>';
 	echo '</div></article>';
 }
 
